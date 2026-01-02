@@ -25,3 +25,7 @@ exclude_patterns = []
 
 html_theme = 'alabaster'
 html_static_path = ['_static']
+
+# GitHub Pages用の設定
+# リポジトリ名に合わせて変更してください（例: 'username/repository-name'）
+# html_baseurl = 'https://msyksphinz.github.io/open_chiplet_atlas_jp/'
