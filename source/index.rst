@@ -10,7 +10,7 @@ Welcome to OCA translation's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   preface.rst
+   00_preface.rst
    02_overview.rst
 
 Indices and tables
