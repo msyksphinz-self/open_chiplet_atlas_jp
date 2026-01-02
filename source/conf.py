@@ -23,9 +23,8 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'alabaster'
+html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
 
 # GitHub Pages用の設定
-# リポジトリ名に合わせて変更してください（例: 'username/repository-name'）
-# html_baseurl = 'https://msyksphinz.github.io/open_chiplet_atlas_jp/'
+html_baseurl = 'https://msyksphinz-self.github.io/open_chiplet_atlas_jp/'
