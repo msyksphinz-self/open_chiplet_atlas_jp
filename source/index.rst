@@ -12,7 +12,8 @@ Welcome to OCA translation's documentation!
 
    00_preface.rst
    02_overview.rst
-
+   03_foundation.rst
+   
 Indices and tables
 ==================
 
