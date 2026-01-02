@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>第2章 概要 &#8212; OCA translation  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to OCA translation’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="id1">
+<h1>第2章 概要<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h1>
+<p>チップレットは、個別のコンポーネントとして機能するように設計された小型の特殊集積回路である。</p>
+<p>チップレットはインテグレーションされ、特に高レベルなソフトウェアの観点から、従来のモノリシックシステムと同様に動作するシステム・イン・パッケージ(SiP)を形成する。</p>
+<p>従来のモノリシック集積回路では全ての機能が単一のシリコン基板上に製造されるのに対し、チップレットは個別に設計・製造・組み立てが可能である。</p>
+<p>このアプローチにより、柔軟性の向上、歩留まりの改善、コスト効率の向上、市場投入までの時間短縮が実現される。</p>
+<section id="id2">
+<h2>2.1. チップレットの相互運用性に関する課題<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
+<p>チップレットベースのSiPは利点を提供する一方で、SiP開発、特に様々なチップレット間の相互運用性において新たな課題をもたらしている。</p>
+<p>その利点を実現するためには、チップレットインターフェースの標準化と相互運用性の確保が必要であり、その必要性が高まっている。</p>
+<ul class="simple">
+<li><p><strong>相互接続</strong>:チップレットは、物理層、トランスポート層、プロトコル層を含む全層にわたる接続と効率的な通信を確立する必要がある。位置ずれは通信障害を引き起こす。高速性、低遅延、エネルギー効率、パッケージング実現性、コストなどの要素を考慮する必要がある。</p></li>
+<li><p><strong>アドレス指定</strong>:チップレットはアドレスマップとオンチップネットワークを独立して定義するため、アドレスマップの重複は避けられない。これにより、異なるアドレスマップ由来のアドレスを解釈しトラフィックを適切にルーティングする必要があるため、チップレット間メモリアクセスに課題が生じる。単一トランザクションが複数のチップレットを経由して目的地に到達する場合、状況はさらに複雑化する。</p></li>
+<li><p><strong>ブート</strong>:
+一部のチップレットは独立したブート・ソリューションを持っているが、大半は初期ブート設定、ファームウェア/ソフトウェアのロード、ブート・ステータス報告のために他のチップレットに依存している。これにより、異なるベンダーのチップレット間で通信、ブート設定、ブートフローの整合性が求められる。</p></li>
+<li><p><strong>システム管理</strong>:チップレットの状態、コンポーネント状態、電力、電圧、クロック、リセット、パフォーマンスなどに関するシステム管理コマンドは、チップレット間で伝達され、タイムリーかつ正確に処理される必要がある。熱制御ループや電流制御ループなどのシステム管理制御ループは、複数のチップレットにまたがる可能性がある。チップレットは、標準インターフェースを使用してシステム管理エージェント間の通信を可能にする必要がある。制御ループのタスク分割も、階層性とレイテンシを考慮しながらシームレスである必要がある。</p></li>
+<li><p><strong>セキュリティ</strong>:チップレットは異なるセキュリティアーキテクチャを持ち、セキュアブート、セキュリティドメイン、セキュアライフサイクル制御、システム/アプリケーションセキュリティサポートの定義が異なる場合がある。これらの差異は、整合性の欠如がセキュリティ脆弱性を引き起こす可能性があるため、シームレスなインテグレーションの障壁となる。さらに、一部のセキュリティ・アプリケーションは複雑なチップレット間連携を必要とする。例えば、SiP内のデバイス認証は階層的な認証構造につながる可能性があり、チップレット間のセキュリティメカニズムの不一致によりデバイス認証を複雑化させる。</p></li>
+<li><p><strong>割り込み</strong>:チップレットは相互通知に割り込みを依存する。この割り込みの実装の違いにより課題が生じる。メッセージベースとワイヤベースといった割り込みタイプの差異、ペイロード形式・ルーティング機構・ソース設定の違いが非互換性を招く。慎重な調整を行わないと、これらの不一致はシームレスな通信とシステムインテグレーションを阻害する。</p></li>
+<li><p><strong>デバッグとテスト</strong>:パッケージ内の全チップレットはデバッグ・テスト支援を必要とする。しかし外部デバッグ/テストアクセスポートを全てのチップレットが備えているわけではない。異なるベンダー製チップレット間でのデバッグ/テストトラフィックのルーティングは困難であり、チップレットごとのセキュリティライフサイクル制御が異なればさらに複雑化する。クロストリガー機構、同期タイムスタンプ、トレースダンプの不一致が、システム全体のデバッグ標準化をさらに困難にする。</p></li>
+<li><p><strong>機能安全(FuSa)</strong>:アプリケーションや業界ごとに異なるアーキテクチャ、トポロジー、戦略のため、チップレットにおける機能安全の相互運用性は容易に達成できない。相互運用性ソリューション自体が堅牢で干渉のないものである必要があるという要件も、それ自体が課題となる。</p></li>
+<li><p><strong>RAS</strong>:メーカーごとにRASアーキテクチャの設計は独自である。SiP内の個々のチップレットは固有のエラー処理実装を持つ可能性がある。差異があるにもかかわらず、全てのチップレットはエラーを正確に特定・報告し、効果的に管理し、障害の影響を制限するために連携する必要がある。相互運用性の主な障壁は、チップレット間のRAS機能向け共通通信プロトコルの確立と、エラー深刻度の基本定義に関する合意にある。これらの課題を克服することは、RAS相互運用性を実現し、高度なプロファイル特化型RAS機能を可能にするために不可欠である。</p></li>
+<li><p><strong>ソフトウェア</strong>:異なるベンダーによる独自定義のハードウェア/ソフトウェアインターフェースやソフトウェア間通信プロトコルが存在するため、チップレット間のソフトウェア相互運用性は困難である。標準化されたインターフェースがなければ、ソフトウェアの再利用性とインテグレーションは複雑かつ非効率となる。SiP構成の自動化には標準化されたデータ構造が必要だが、その内容と形式についてベンダー間で合意に達することは依然として難しい。異なるチップレットベンダーからのソフトウェアイメージのロードは必要不可欠だが、データ表現や構成メカニズムの不一致がシームレスなインテグレーションの大きな障壁となっている。</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>2.2. オープン・チップレット・アトラス・アーキテクチャの目的<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
+<p>オープン・チップレット・アトラス™(OCA)アーキテクチャの目的は、SiP内のチップレット間の相互運用性に対するオープンかつ包括的なソリューションを提供することである。異なるCPUエコシステムやベンダーのIPおよびチップレットをサポートするよう設計されている。複数のレイヤーにまたがる異なる機能ドメインにおける課題を包括的に解決する。OCAアーキテクチャ準拠のチップレットは「プラグアンドプレイ」方式でシームレスにインテグレーション可能である。これには以下の側面が含まれる:</p>
+<ol class="arabic simple">
+<li><p><strong>接続
+(Plug)</strong>:チップレットは物理的に接続され、高速・低遅延・省電力・堅牢なダイ間(D2D)信号伝送を実現。標準化されたダイ配置、パッケージ配線、熱管理、電力供給を備える。チップレット同士が「会話」可能。</p></li>
+<li><p><strong>通信
+(Talk)</strong>:チップレットはUCIeやBoWなどの標準トランスポート機構でデータ転送を行う。標準トランザクションプロトコルを用いてデータパケットを構築・解釈し、「共通言語」で通信する。</p></li>
+<li><p><strong>連携
+(Play)</strong>:チップレットはシステムレベルの相互運用ルールに従うため、組み立て後はトラフィックルーティング、ブート、システム管理、セキュリティ、割り込み、機能安全、RAS、デバッグ、テストにおいて自動的に協調する。チップレットは異なるシステムレベル機能に対する標準ハードウェアサポートを実装するだけでなく、標準ソフトウェアインターフェースを用いて異なるチップレット上でソフトウェアを実行する。これにより、特に高レベルなソフトウェアの観点から、チップレットはモノリシックSoCのように「動作」する。</p></li>
+</ol>
+<p>OCAアーキテクチャに従えば、異なるベンダーのチップレットを組み立てた時点で、ハードウェア機能は箱から出してすぐにシームレスに動作する。付属ソフトウェアも自然に連携し、最小限の調整で円滑に動作する。</p>
+<p>最終的に、このアーキテクチャはOCAエコシステムの構築を支える。このエコシステムでは、チップレット設計者は明確に定義された相互運用可能なインターフェースを備えた設計IPを利用できる。パッケージ設計者はチップレットマーケットプレイスの恩恵を受け、異なるベンダーの様々なチップレットを選択し、それらを組み立ててシステムインパッケージ(SiP)を作成できる。</p>
+</section>
+<section id="oca">
+<h2>2.3. OCAアーキテクチャの範囲<a class="headerlink" href="#oca" title="Link to this heading">¶</a></h2>
+<p>OCAアーキテクチャは、チップレット間の相互運用性に焦点を当て、チップレットの相互接続方法およびチップレット機能が他のチップレットとどのように連携するかを定義する。本アーキテクチャは、チップレット機能自体の機能性を定義するものではなく、チップレットの品質や競争力を定義するものでもない。例えば、アーキテクチャは電力管理のためにチップレットが連携する方法を規定しますが、各チップレットに特定の省電力機能を義務付けるものではない。同様に、アーキテクチャはRASをサポートするためにチップレットが協力する方法を概説するが、個々のチップレットに特定のRAS機能を要求するものではない。</p>
+<section id="id4">
+<h3>2.3.1. OCAアーキテクチャの階層的視点<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<p>「プラグアンドプレイ」機能を実現するには、図1に示すように、チップレット設計スタックの各層(物理層、トランスポート層、プロトコル層、システム層、ソフトウェア層)における整合性が必要である。</p>
+<figure class="align-default" id="id9">
+<img alt="チップレットの相互運用性のため階層レイヤ" src="_images/fig01_layers.png" />
+<figcaption>
+<p><span class="caption-text">チップレットの相互運用性のため階層レイヤ</span><a class="headerlink" href="#id9" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>チップレットの相互運用性のため階層レイヤ</p>
+<p>以下に5つのアーキテクチャ層の詳細な説明を示す:</p>
+<ol class="arabic simple">
+<li><p>物理層 -
+チップレット配置、向き、配線ルートの物理的インテグレーションルールを定義する。物理層は後続のOCA仕様リリースに向けて段階的に整備される。</p></li>
+<li><p>トランスポート層 -
+チップレット間のデータ転送を可能にする。例:UCIe、BoW、I3C。</p></li>
+<li><p>プロトコル層 -
+データパケットの解釈とローカルファブリック/バス(AXIやCHIなど)へのマッピングを規定する標準メカニズムを定義。</p></li>
+<li><p>システム層 -
+起動、管理、セキュリティ、安全性、RAS、QoS、割り込み、デバッグ、テストのためのインテグレーションシステムを構築し、チップレット間の協調動作を保証。</p></li>
+<li><p>ソフトウェア層 -
+標準構成データ構造とソフトウェアインターフェースを定義。</p></li>
+</ol>
+<p>各層は「接続」「通信」「連携」を目的として設計される。物理層の標準化はチップレットのシームレスな「接続」に不可欠である。チップレット間の「通信」を実現するにはプロトコル層とトランスポート層の標準化が必要である。効果的な「連携」にはシステム層とソフトウェア層での整合性が必須である。</p>
+<p>UCIeやUCIe上のAMBAプロトコルなど、一部のトランスポート層およびプロトコル層のソリューションは広く研究されているが、システム層とソフトウェア層への注目度ははるかに低い。さらに、体系的なアプローチの欠如により、トランスポート層とプロトコル層の定義は不完全なままである。OCAアーキテクチャ1.0は包括的なアプローチを採用し、相互運用性を確保するためにトランスポート層、プロトコル層、システム層、ソフトウェア層のすべてに対処する。</p>
+<p>物理層は、初期アーキテクチャ1.0以降のリリースにおいて新たな章として定義される予定である。それまでは、チップレット設計者が自社のチップレットの要件を満たす物理層ソリューションを構築し、SiPインテグレーターがシームレスなインテグレーションを確保する責任を負う。UCIeやBoWには確かに物理層が存在するが、本初期リリースでは簡略化のため省略されており、物理層の詳細が明らかになり次第更新される予定である。</p>
+</section>
+<section id="id5">
+<h3>2.3.2. インテグレーション例<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<p>本節では、OCAアーキテクチャ関連コンポーネントを色分けして強調表示した、3つのチップレット・インテグレーション例を示す。</p>
+<p>図2は拡張インテグレーション例を示しており、基本機能を実装するベースチップレットが中央に位置し、機能拡張として拡張チップレットが周囲を取り囲んでいる。南側のエッジに沿ったD2Dインターフェースは、他の拡張チップレットやベースチップレットとの接続に使用できる。</p>
+<figure class="align-default" id="id10">
+<img alt="図2. ベースチップレットに対する拡張チップレットのインテグレーション" src="_images/fig02_example1.png" />
+<figcaption>
+<p><span class="caption-text">図2. ベースチップレットに対する拡張チップレットのインテグレーション</span><a class="headerlink" href="#id10" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>図2. ベースチップレットに対する拡張チップレットのインテグレーション</p>
+<p>一般的に、1つのチップレット内のOCAアーキテクチャ関連コンポーネントは次のグループに分類できる:</p>
+<ul class="simple">
+<li><p>D2Dインターフェース:図1に示すパッケージ物理層およびトランスポート層に対応する。UCIe接続のような高速インターフェースと、I3C接続のような低速だが高可用性インターフェースにさらに分類できる。</p></li>
+<li><p>システムからD2Dへのインターフェース:図1に示すプロトコル層に対応し、バスプロトコルブリッジとドメイン固有のトラフィック属性を包含する。例えば、AXIプロトコルをUCIeストリーミングプロトコルにマッピングする際には、セキュリティドメイン情報が考慮される。</p></li>
+<li><p>OCAシステム層機能:図1に示すシステム層のアーキテクチャ定義に対応する。</p></li>
+</ul>
+<p>図3は、中央ハブチップレットを用いた集中型チップレット・インテグレーションの例を示す。図2の拡張インテグレーションとは異なり、中央ハブチップレットは接続に焦点を当てる。CPUチップレットは拡張ではなく、メインCPUクラスターである。</p>
+<figure class="align-default" id="id11">
+<img alt="図3. ハブを用いた集中型のチップレットのインテグレーション" src="_images/fig03_example2.png" />
+<figcaption>
+<p><span class="caption-text">図3. ハブを用いた集中型のチップレットのインテグレーション</span><a class="headerlink" href="#id11" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>図3. ハブを用いた集中型のチップレットのインテグレーション</p>
+<p>図4は、中央ベースチップレットやハブチップレットを伴わない分散型チップレット・インテグレーションを示す。</p>
+<figure class="align-default" id="id12">
+<img alt="図4. ハブを用いた分散型のチップレットのインテグレーション" src="_images/fig04_example3.png" />
+<figcaption>
+<p><span class="caption-text">図4. ハブを用いた分散型のチップレットのインテグレーション</span><a class="headerlink" href="#id12" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>図4. ハブを用いた分散型のチップレットのインテグレーション</p>
+</section>
+</section>
+<section id="id6">
+<h2>2.4. OCAアーキテクチャの設計原則<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h2>
+<p>OCAアーキテクチャは以下の原則に基づいて定義される:</p>
+<ul class="simple">
+<li><p><strong>オープン性</strong>:協業を促進し、コスト削減と相互運用性を確保するオープンアーキテクチャである。ベンダーロックインを回避するため、OCAアーキテクチャはオープン仕様の技術のみに依存する。</p></li>
+<li><p><strong>業界標準ベース</strong>:可能な限り既存の業界標準ソリューションを活用する。</p></li>
+<li><p><strong>アクセス可能性</strong>:広く利用可能な知的財産(IP)を有するソリューションを優先する。</p></li>
+</ul>
+</section>
+<section id="id7">
+<h2>2.5. 相互運用性と柔軟性<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h2>
+<p>柔軟性はしばしば相互運用性を犠牲にする。OCAアーキテクチャは両者のバランスを取るため、以下の方法を採用する:</p>
+<ul class="simple">
+<li><p>単一ソリューションへの絞り込みが現実的でない場合、アーキテクチャは各実行可能な選択肢をアーキテクチャ内に考慮する。この場合の相互運用性は、同一オプションを採用するチップレット間での相互運用性を指す。例えば、一部のチップレットがUCIeをトランスポート機構として採用し、他のチップレットがBoWを選択する場合でも、アーキテクチャは単一の選択肢を強制しない。代わりに、同一かつ互換性のあるプロトコル/トランスポート/物理オプションを全て採用すれば、チップレットが相互に動作することを保証する。同一トランスポート機構内でも互換性がないケースは残念ながら存在するが、OCAエコシステムはこうしたギャップの一部を埋めることを目指している。</p></li>
+<li><p>ユースケースや市場セグメントによって適したソリューションは異なる。この課題に対処するため、OCAアーキテクチャはプロファイルの概念を導入している。各プロファイルは、特定のチップレットファミリー向けに機能ドメインの選択とパラメータ値の割り当てを通じてOCA基本定義を精緻化したものである。
+特定の機能はプロファイル依存であり、特定のプロファイルでのみ要求される。異なるプロファイルに準拠するチップレット間の相互運用性は保証されない。チップレットが複数のプロファイルをサポートする必要がある場合、すべてのプロファイル要件のスーパーセットを満たす必要があり、個々のプロファイルは必要に応じて選択的に有効化される。</p></li>
+</ul>
+</section>
+<section id="id8">
+<h2>2.6. 文書の構成<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h2>
+<p>本ドキュメントの残りの部分は以下の構成となっている:</p>
+<ul class="simple">
+<li><p>第3章、第4章、第5章、第6章では、一般的なアーキテクチャを紹介する。一般的なアーキテクチャには、アドレッシング、ブート、システム管理などの共通機能ドメインと、RASや機能安全などの用途固有の機能ドメインが含まれる。</p></li>
+<li><p>プロファイルベースの定義(第7章)では、プロファイルで指定された選択肢を適用することで、一般的なアーキテクチャを精緻化する。</p></li>
+<li><p>機能ドメインとプロファイルの定義は、常に階層的な定義に従う。</p></li>
+</ul>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">OCA translation</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">第2章 概要</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">2.1. チップレットの相互運用性に関する課題</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">2.2. オープン・チップレット・アトラス・アーキテクチャの目的</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#oca">2.3. OCAアーキテクチャの範囲</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">2.4. OCAアーキテクチャの設計原則</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">2.5. 相互運用性と柔軟性</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">2.6. 文書の構成</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to OCA translation’s documentation!</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2026, msyksphinz.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/02_overview.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
