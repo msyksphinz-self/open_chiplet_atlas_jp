@@ -13,6 +13,7 @@ Welcome to OCA translation's documentation!
    00_preface.rst
    02_overview.rst
    03_foundation.rst
+   04_system_layer.rst
    
 Indices and tables
 ==================
