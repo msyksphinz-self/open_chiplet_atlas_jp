@@ -28,3 +28,5 @@ html_static_path = ['_static']
 
 # GitHub Pages用の設定
 html_baseurl = 'https://msyksphinz-self.github.io/open_chiplet_atlas_jp/'
+
+numfig = True
