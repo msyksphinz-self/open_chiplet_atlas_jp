@@ -7,7 +7,8 @@ Welcome to OCA translation's documentation!
 ===========================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
+   :numbered:
    :caption: Contents:
 
    00_preface.rst
